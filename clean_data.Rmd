@@ -11,7 +11,6 @@ library(tidyverse)
 
 chs = read.sas7bdat("chs_2018.sas7bdat")
 
-
 chs_clean = chs %>%
   mutate(insure5 = ifelse(insure5 %in% c(1,2,3,4,5), insure5, NA),
          insured = ifelse(insured %in% c(1,2), insured, NA),
@@ -24,6 +23,19 @@ chs_clean = chs %>%
          agegroup = ifelse(agegroup %in% c(1,2,3,4), agegroup, NA),
          education = ifelse(education %in% c(1,2,3,4), education, NA)) %>%
   select(c(newrace, insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
-  
 
+chs_sas = chs %>%
+  mutate(insure5 = ifelse(insure5 %in% c(1,2,3,4,5), insure5, "."),
+         insured = ifelse(insured %in% c(1,2), insured, "."),
+         pcp18 = ifelse(pcp18 %in% c(1,2), pcp18, "."),
+         didntgetcare18 = ifelse(didntgetcare18 %in% c(1,2), didntgetcare18, "."),
+         medcost18 = ifelse(medcost18 %in% c(1,2), medcost18,"."),
+         imputed_povertygroup = ifelse(imputed_povertygroup %in% c(1,2,3,4,5), imputed_povertygroup, "."),
+         imputed_neighpovgroup4_1317 = ifelse(imputed_neighpovgroup4_1317 %in% c(1,2,3,4), imputed_neighpovgroup4_1317, "."),
+         birthsex = ifelse(birthsex %in% c(1,2), birthsex, "."),
+         agegroup = ifelse(agegroup %in% c(1,2,3,4), agegroup, "."),
+         education = ifelse(education %in% c(1,2,3,4), education, ".")) %>%
+  select(c(newrace, insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
+
+write_csv(chs_sas, "chs_clean.csv")
 ```
