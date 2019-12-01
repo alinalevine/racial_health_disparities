@@ -23,7 +23,7 @@ chs_clean = chs %>%
          birthsex = ifelse(birthsex %in% c(1,2), birthsex, NA),
          agegroup = ifelse(agegroup %in% c(1,2,3,4), agegroup, NA),
          education = ifelse(education %in% c(1,2,3,4), education, NA)) %>%
-  select(c(insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
+  select(c(newrace, insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
   
 
 ```
