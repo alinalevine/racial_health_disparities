@@ -1,4 +1,4 @@
-﻿
+
 * Import dataset;
 proc import out=chs_clean
 	datafile="C:\Users\tjqja\Documents\Columbia\P8123 Analysis of Health Surveys\Final Project\chs_clean.csv"
