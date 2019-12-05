@@ -42,3 +42,9 @@ chs_sas = chs %>%
 
 write_csv(chs_sas, "chs_clean.csv")
 ```
+
+```{r barplot}
+# Make a barplot
+
+```
+

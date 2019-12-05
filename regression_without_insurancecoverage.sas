@@ -1,4 +1,4 @@
-ods rtf file = "C:\Users\tjqja\Documents\Columbia\regression_jt3098.rtf"
+ods rtf file = "C:\Users\tjqja\Documents\Columbia\regression_jt3098.pdf"
 		bodytitle startpage=yes;
 * Import dataset;
 proc import out=chs_clean
@@ -44,4 +44,4 @@ domain agegroup;
 output out = predicted p = predprob;
 run;
 
-ods rtf close;
+ods pdf close;
