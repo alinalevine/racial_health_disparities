@@ -48,18 +48,19 @@ RUN;
 
 /* bar chart of ability to get medical care by race*/
 
-proc freq data=chs_clean3;
-    table newrace * didntgetcare18/out=freq outpct;
+proc freq data=chs_clean;
+    table agegroup* newrace * didntgetcare18/out=freq outpct;
+	weight wt19_dual;
 quit;
  
  
-proc sgplot data=freq;
+proc sgpanel data=freq;
+	panelby agegroup /columns = 3;
     vbar newrace /  
-        response=pct_row  /* response= means SGPLOT will plot the summed the values */
-        group=didntgetcare18;
-       yaxis label='Percent of People WHo did not get needed care in 2018' labelattrs=(size=12);
-       format race;
-       run;
+    response=pct_row  /* response= means SGPLOT will plot the summed the values */
+    group=didntgetcare18;
+    format race race.;   
+run;
        
        
 /* bar chart of ability to get medical care due to cost be race*/
