@@ -35,7 +35,10 @@ chs_sas = chs %>%
          birthsex = ifelse(birthsex %in% c(1,2), birthsex, "."),
          agegroup = ifelse(agegroup %in% c(1,2,3,4), agegroup, "."),
          education = ifelse(education %in% c(1,2,3,4), education, ".")) %>%
-  select(c(newrace, insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
+  select(c(newrace, insure5, insured, pcp18, didntgetcare18, imputed_povertygroup, birthsex, agegroup, education, strata, wt19_dual)) %>% 
+  mutate(newrace=ifelse(newrace %in% c(4,5), 4, newrace),
+         agegroup=ifelse(agegroup %in% c(1,2), 1, agegroup),
+         imputed_povertygroup=ifelse(imputed_povertygroup %in% c(4,5), 4, imputed_povertygroup))
 
 write_csv(chs_sas, "chs_clean.csv")
 ```
