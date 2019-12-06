@@ -1,4 +1,4 @@
-ods rtf file = "C:\Users\tjqja\Documents\Columbia\regression_jt3098.pdf"
+ods rtf file = "C:\Users\tjqja\Documents\Columbia\regression_jt3098.rtf"
 		bodytitle startpage=yes;
 * Import dataset;
 proc import out=chs_clean
@@ -90,4 +90,4 @@ proc sgpanel data=freq2;
 	colaxis label = "Race";	 
 run;
 
-ods pdf close;
+ods rtf close;
