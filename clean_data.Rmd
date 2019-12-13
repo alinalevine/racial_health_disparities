@@ -24,6 +24,7 @@ chs_clean = chs %>%
          education = ifelse(education %in% c(1,2,3,4), education, NA)) %>%
   select(c(newrace, insure5, insured, pcp18, didntgetcare18, medcost18, imputed_povertygroup, imputed_neighpovgroup4_1317, birthsex, agegroup, education, strata, wt19_dual))
 
+
 chs_sas = chs %>%
   mutate(insure5 = ifelse(insure5 %in% c(1,2,3,4,5), insure5, "."),
          insured = ifelse(insured %in% c(1,2), insured, "."),
@@ -34,13 +35,17 @@ chs_sas = chs %>%
          imputed_neighpovgroup4_1317 = ifelse(imputed_neighpovgroup4_1317 %in% c(1,2,3,4), imputed_neighpovgroup4_1317, "."),
          birthsex = ifelse(birthsex %in% c(1,2), birthsex, "."),
          agegroup = ifelse(agegroup %in% c(1,2,3,4), agegroup, "."),
-         education = ifelse(education %in% c(1,2,3,4), education, ".")) %>%
-  select(c(newrace, insure5, insured, pcp18, didntgetcare18, imputed_povertygroup, birthsex, agegroup, education, strata, wt19_dual)) %>% 
+         education = ifelse(education %in% c(1,2,3,4), education, "."),
+         generalhealth = ifelse(generalhealth %in% c(1,2,3,4,5), generalhealth, ".")) %>%
+  select(c(newrace, insure5, insured, pcp18, didntgetcare18,generalhealth, imputed_povertygroup, birthsex, agegroup, education, strata, wt19_dual)) %>% 
   mutate(newrace=ifelse(newrace %in% c(4,5), 4, newrace),
          agegroup=ifelse(agegroup %in% c(1,2), 1, agegroup),
+         generalhealth = ifelse(generalhealth %in% c(4,5),4, generalhealth),
          imputed_povertygroup=ifelse(imputed_povertygroup %in% c(4,5), 4, imputed_povertygroup))
 
-write_csv(chs_sas, "chs_clean.csv")
+
+
+write_csv(chs_sas, "chs_clean_recode.csv")
 ```
 
 ```{r barplot}
