@@ -1,10 +1,11 @@
-
+/*import data*/
 proc import out=chs
 datafile="C:\Users\Holly\Desktop\health survey\8 Final project\racial_health_disparities\chs_clean_recode.csv"
 dbms=csv replace;
 getnames=yes;
 run;
 
+/*table 1 age*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*agegroup /cl(type=logit) row chisq(secondorder);
@@ -21,6 +22,7 @@ outfile="race_age.csv"
 replace;
 run;
 
+/*table 1 race total*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace /cl(type=logit);
@@ -37,6 +39,7 @@ outfile="race.csv"
 replace;
 run;
 
+/*table 1 sex*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*birthsex /cl(type=logit) row chisq(secondorder);
@@ -53,6 +56,7 @@ outfile="race_sex.csv"
 replace;
 run;
 
+/*table 1 education*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*education /cl(type=logit) row chisq(secondorder);
@@ -69,7 +73,7 @@ outfile="race_edu.csv"
 replace;
 run;
 
-
+/*table 1 income*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*imputed_povertygroup /cl(type=logit) row chisq(secondorder);
@@ -86,7 +90,7 @@ outfile="race_pov.csv"
 replace;
 run;
 
-
+/*table 1 insurance*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*insured /cl(type=logit) row chisq(secondorder);
@@ -103,23 +107,7 @@ outfile="race_ins.csv"
 replace;
 run;
 
-
-proc surveyfreq data=chs order=freq;
-strata strata; weight wt19_dual;
-table newrace*didntgetcare18 /cl(type=logit) row chisq(secondorder);
-ods output CrossTabs = race_care;
-run;
-
-data race_care;
-set race_care;
-format RowPercent RowLowerCL RowUpperCL 8.2;
-run;
-
-proc export data=race_care dbms=csv
-outfile="race_care.csv"
-replace;
-run;
-
+/*table 1 usual care provider*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*pcp18 /cl(type=logit) row chisq(secondorder);
@@ -136,6 +124,7 @@ outfile="race_pcp.csv"
 replace;
 run;
 
+/*table 1 general health*/
 proc surveyfreq data=chs;
 strata strata; weight wt19_dual;
 table newrace*generalhealth /cl(type=logit) row chisq(secondorder);
@@ -152,7 +141,7 @@ outfile="race_health.csv"
 replace;
 run;
 
-
+/*model for insurance*/
 proc surveylogistic data = chs;
 strata strata; weight wt19_dual;
 class newrace(ref = first)  birthsex(ref = first) generalhealth (ref = first)  /  param= ref;
@@ -161,6 +150,7 @@ domain agegroup;
 ods output OddsRatios=or;
 run;
 
+/*OR plot for insurance*/
 data or;
 set or;
 if domain ne " ";
@@ -194,7 +184,7 @@ x2axis offsetmin=0.65 display=(noticks nolabel);
 yaxis display=(noticks nolabel);
 run;
 
-
+/*fully adjusted model for usual care provider*/
 proc surveylogistic data = chs;
 strata strata; weight wt19_dual;
 class newrace(ref = first) birthsex(ref = first) generalhealth (ref = first) 
@@ -204,6 +194,7 @@ domain agegroup;
 ods output OddsRatios=or2;
 run;
 
+/*OR plot for usual care provider*/
 data or2;
 set or2;
 if domain ne " ";
