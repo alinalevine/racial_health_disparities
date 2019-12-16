@@ -48,8 +48,4 @@ chs_sas = chs %>%
 write_csv(chs_sas, "chs_clean_recode.csv")
 ```
 
-```{r barplot}
-# Make a barplot
-
-```
 
